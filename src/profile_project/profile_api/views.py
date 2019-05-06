@@ -12,9 +12,16 @@ from rest_framework import status
 
 #profile
 from . import models
+
 #PERMISSIONS 
 from . import permissions
 from rest_framework.authentication import TokenAuthentication
+from rest_framework import filters
+
+
+#Login
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
 
 # VIEWSET
 from rest_framework import viewsets
@@ -153,6 +160,23 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.object.all()
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    seach_fields = ('name','email',)
+
+
+class LoginViewSet(viewsets.ViewSet):
+
+	""" check email and etc"""
+
+	serializer_class = AuthTokenSerializer
+	def create(self,request):
+
+		""" use the obtain the apiview to validate token"""
+		return ObtainAuthToken().post(request)
+
+
+
+
 
 
 
