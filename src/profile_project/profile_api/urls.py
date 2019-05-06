@@ -11,6 +11,7 @@ from . import views
 #VIEWSET
 router = DefaultRouter()
 router.register('hello-viewset',views.HelloViewSet, base_name='hello-viewset')
+router.register('profile',views.UserProfileViewSet)
 
 
 

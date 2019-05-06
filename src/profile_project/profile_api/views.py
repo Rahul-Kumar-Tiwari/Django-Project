@@ -10,6 +10,8 @@ from . import serializers
 from rest_framework import status
 
 
+#profile
+from . import models
 
 # VIEWSET
 from rest_framework import viewsets
@@ -121,6 +123,12 @@ class HelloViewSet(viewsets.ViewSet):
 
 		return Response({'http_method':'DELETE'})
 
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+	""" Handels creating and updating profiles"""
+	serializer_class = serializers.UserProfileSerializer
+	queryset = models.UserProfile.object.all()
 
 
 
