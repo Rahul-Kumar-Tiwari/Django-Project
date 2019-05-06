@@ -12,6 +12,9 @@ from rest_framework import status
 
 #profile
 from . import models
+#PERMISSIONS 
+from . import permissions
+from rest_framework.authentication import TokenAuthentication
 
 # VIEWSET
 from rest_framework import viewsets
@@ -124,19 +127,32 @@ class HelloViewSet(viewsets.ViewSet):
 		return Response({'http_method':'DELETE'})
 
 
-
+'''
 class UserProfileViewSet(viewsets.ModelViewSet):
 	""" Handels creating and updating profiles"""
 	serializer_class = serializers.UserProfileSerializer
 	queryset = models.UserProfile.object.all()
 
+	#permission_classes = (permissions.UpdateOwnProfile,)
+
+	authentication_classes = (TokenAuthentication,)
+
+	#authentication_class = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
+
+'''
 
 
 
 
 
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handles creating, creating and updating profiles."""
 
-
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.object.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
 
 
 
