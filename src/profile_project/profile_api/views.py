@@ -167,7 +167,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     seach_fields = ('name','email',)
 
-
+#login View
 class LoginViewSet(viewsets.ViewSet):
 
 	""" check email and etc"""
@@ -177,6 +177,7 @@ class LoginViewSet(viewsets.ViewSet):
 
 		""" use the obtain the apiview to validate token"""
 		return ObtainAuthToken().post(request)
+#user Profile view
 
 class UserProfileFeedViewSet(viewsets.ModelViewSet):
 	authentication_classes = (TokenAuthentication,)
